@@ -25,7 +25,8 @@ python3 -m venv venv
 ##### Activate the virtual environment
 
 ```bash
-source venv/bin/activate
+venv\Scripts\activate (on Windows)
+source venv/bin/activate (on Linux/macOS)
 ```
 
 ##### Install the dependencies
@@ -55,6 +56,8 @@ Before run this project, add the following environment variables to your ```.env
 
 `DJANGO_SECRET_KEY`
 
+`DJANGO_DEBUG`
+
 `ALLOWED_HOSTS`
 
 ##### Run the database migrations
@@ -82,6 +85,8 @@ docker-compose up --build
 
 2. Obtain an access token at the following URL http://localhost:8000/api/user/token/
 
+## Endpoints
+![endpoints](endpoints.jpg)
 
 ## Features
 
