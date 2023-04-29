@@ -44,7 +44,7 @@ class ActorViewSet(
     mixins.ListModelMixin,
     GenericViewSet,
 ):
-    queryset = Actor.objects.all()
+    queryset = Actor.objects
     serializer_class = ActorSerializer
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -148,14 +148,9 @@ class MovieViewSet(
 
 
 class MovieSessionViewSet(viewsets.ModelViewSet):
-    queryset = (
-        MovieSession.objects.all()
-        .select_related("movie", "cinema_hall")
-        .annotate(
-            tickets_available=(
-                F("cinema_hall__rows") * F("cinema_hall__seats_in_row")
-                - Count("tickets")
-            )
+    queryset = MovieSession.objects.select_related("movie", "cinema_hall").annotate(
+        tickets_available=(
+            F("cinema_hall__rows") * F("cinema_hall__seats_in_row") - Count("tickets")
         )
     )
     serializer_class = MovieSessionSerializer
@@ -196,8 +191,7 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
                 "date",
                 type=OpenApiTypes.DATE,
                 description=(
-                    "Filter by datetime of MovieSession "
-                    "(ex. ?date=2022-10-23)"
+                    "Filter by datetime of MovieSession " "(ex. ?date=2022-10-23)"
                 ),
             ),
         ]
